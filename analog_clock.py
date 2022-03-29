@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import datetime
 
-size=1000
+size=700
 width,height=size,size
 canvas=np.zeros((width,height,3))
 padding=20;
@@ -20,7 +20,10 @@ cv2.circle(canvas,center,int(w/2),(225,0,0),5)
 
 for i in range(60):
     if(i%5==0):
-        cv2.circle(canvas,(w+int(r*np.cos(i*np.pi/6)),h+int(r*np.sin(i*np.pi/6))),7,(0,0,255),-1)
+        if(i%3==0):
+            cv2.circle(canvas,(w+int(r*np.cos(i*np.pi/6)),h+int(r*np.sin(i*np.pi/6))),9,(255,255,0),-1)
+        else:
+            cv2.circle(canvas,(w+int(r*np.cos(i*np.pi/6)),h+int(r*np.sin(i*np.pi/6))),7,(0,0,255),-1)
         
     else:
         cv2.circle(canvas,(w+int(r*np.cos(i*np.pi/30)),h+int(r*np.sin(i*np.pi/30))),3,(0,0,0),-1)
@@ -38,7 +41,7 @@ while(True):
     se=int((str(t).split(':')[2]).split('.')[0])
     date_str='|{}|{}|{}|'.format(date,month,year)
     #putting date inside the clock:
-    cv2.putText(canvas,date_str,((int(w)-int(2/25*size)),int(h)+int(r/2*np.sin(np.pi/2))),cv2.FONT_HERSHEY_COMPLEX,size/1000,(255,0,0),1,cv2.LINE_AA)
+    cv2.putText(canvas,date_str,((int(w)-int(2/25*size)),int(h)+int(0.8*r*np.sin(np.pi/2))),cv2.FONT_HERSHEY_COMPLEX,size/1000,(255,0,0),1,cv2.LINE_AA)
     #code for needles
     cv2.line(canvas2,center,(w+int(hour*np.cos(((hr)*np.pi/6+mi*(np.pi/360))+3*np.pi/2)),h+int(hour*np.sin(((hr)*np.pi/6+mi*(np.pi/360))+3*np.pi/2))),(0,0,255),7,cv2.LINE_AA)
     cv2.line(canvas2,center,(w+int(minute*np.cos(mi*np.pi/30+3*np.pi/2)),h+int(minute*np.sin(mi*np.pi/30+3*np.pi/2))),(0,255,0),5)
